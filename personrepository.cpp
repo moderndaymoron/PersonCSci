@@ -4,7 +4,7 @@
 using namespace std;
 
 PersonRepository::PersonRepository() {
-
+    plist = {};
     ifstream inFile("PersonFile.txt");
 
     if(inFile.is_open()) {
@@ -25,7 +25,7 @@ PersonRepository::PersonRepository() {
 
     } else {
         cout << "ERROR: cannot open file." << endl;
-
+        cout << endl;
     }
 
     inFile.close();
@@ -39,16 +39,17 @@ void PersonRepository::add(Person p) {
 void PersonRepository::display() {
     if(plist.size()) {
 
-        for(unsigned int i = 0; i < plist.size(); i++) {
-            cout << "Name: " << plist[i].name << endl;
-            cout << "Gender: "<< plist[i].gender << endl;
-            cout << "Date of birth: " << plist[i].dayOfBirth << endl;
-            cout << "Date of death: " << plist[i].dayOfDeath << endl;
+        for(int i = 0; i < plist.size(); i++) {
+            cout << "Name:\t\t" << plist[i].name << endl;
+            cout << "Gender:\t\t"<< plist[i].gender << endl;
+            cout << "Date of birth:\t" << plist[i].dayOfBirth << endl;
+            cout << "Date of death:\t" << plist[i].dayOfDeath << endl;
             cout << endl;
         }
 
     } else {
         cout << "The database is empty" << endl;
+        cout << endl;
     }
 }
 
@@ -59,20 +60,93 @@ void PersonRepository::save() {
 
     if(outFile.is_open()) {
 
-        for(unsigned int i = 0; i < plist.size(); i++) {
+        for(int i = 0; i < plist.size(); i++) {
             outFile << plist[i].name << endl;
             outFile << plist[i].gender << endl;
             outFile << plist[i].dayOfBirth << endl;
             outFile << plist[i].dayOfDeath << endl;
         }
 
+        cout << "All changes have been saved." << endl;
+        cout << endl;
+
     } else {
         cout << "ERROR: cannot open file." << endl;
+        cout << endl;
     }
 
     outFile.close();
 }
 
+void PersonRepository::erase() {
+    string answer;
+    cout << "What would you like to erase (all/specific)? ";
+    getline(cin, answer);
+
+    if (answer == "all") {
+        plist.erase(plist.begin(),plist.end());
+        cout << endl;
+        cout << "All persons have been erased." << endl;
+        cout << endl;
+    } else if (answer == "specific") {
+        string input;
+        cout << "Enter full name: ";
+        getline(cin, input);
+        cout << "Searching..." << endl;
+        cout << endl;
+
+        int index, failCounter = 0, hitCounter = 0;
+        for(index = 0; index < plist.size(); index++) {
+            if(input == plist[index].name) {
+                cout << "Found at index " << index << endl;
+                plist.erase(plist.begin()+index);
+                cout << "Person erased." << endl;
+                index--; //because erasing means the .size() function returns a smaller value, needs to shrink the index as required
+                hitCounter++;
+                cout << endl;
+            } else {
+                failCounter++;
+            }
+        }
+
+
+        if ((failCounter == plist.size()) && (hitCounter == 0)) {
+            cout << "ERROR: Could not find, person does not exist in database." << endl;
+            cout << endl;
+        }
+    }
+;
+}
+
+void PersonRepository::search() {
+    string input;
+    cout << "Enter full name: ";
+    getline(cin, input);
+    cout << "Searching..." << endl;
+
+    int index, failCounter = 0;
+    for(index = 0; index < plist.size(); index++) {
+        if(input == plist[index].name) {
+            cout << "Found at index " << index << endl;
+            cout << endl;
+            cout << "Name:\t\t" << plist[index].name << endl;
+            cout << "Gender:\t\t"<< plist[index].gender << endl;
+            cout << "Date of birth:\t" << plist[index].dayOfBirth << endl;
+            cout << "Date of death:\t" << plist[index].dayOfDeath << endl;
+            cout << endl;
+        } else {
+            failCounter++;
+        }
+    }
+
+    if (failCounter == plist.size()) {
+        cout << "ERROR: Could not find, person does not exist in database." << endl;
+        cout << endl;
+    }
+}
+
+
 double PersonRepository::getSize() {
     return plist.size();
 }
+

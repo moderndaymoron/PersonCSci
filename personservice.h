@@ -11,6 +11,9 @@ public:
     void add(Person p);
     void display();
     void save();
+    void erase();
+    void search();
+
     double getSize();
 
 private:
