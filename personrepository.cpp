@@ -64,7 +64,7 @@ void PersonRepository::display() {
                 cout << "ERROR: Sorting failed." << endl;
                 cout << endl;
             }
-        } else {
+        } else if((ans == 'n' || ans == 'N')) {
             for(int i = 0; i < plist.size(); i++) {
                 cout << "Name:\t\t" << plist[i].name << endl;
                 cout << "Gender:\t\t"<< plist[i].gender << endl;
@@ -72,22 +72,12 @@ void PersonRepository::display() {
                 cout << "Date of death:\t" << plist[i].dayOfDeath << endl;
                 cout << endl;
             }
-
-<<<<<<< HEAD
-        for(unsigned int i = 0; i < plist.size(); i++) {
-            cout << "Name:\t\t" << plist[i].name << endl;
-            cout << "Gender:\t\t"<< plist[i].gender << endl;
-            cout << "Date of birth:\t" << plist[i].dayOfBirth << endl;
-            cout << "Date of death:\t" << plist[i].dayOfDeath << endl;
-            cout << endl;
-=======
->>>>>>> 64bc9132c0d7292527302ca397291f255b419fed
-        }
-    } else {
-        cout << "The database is empty" << endl;
-        cout << endl;
+           }
+           else {
+             cout << "The database is empty" << endl;
+             cout << endl;
     }
-}
+}}
 
 void PersonRepository::save() {
     ofstream outFile("PersonFile.txt");
