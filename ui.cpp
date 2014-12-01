@@ -3,7 +3,6 @@
 
 UI::UI() {
     Pservice = PersonService();
-    Pservice.save();
 }
 
 void UI::start() {
@@ -16,14 +15,14 @@ void UI::start() {
     int saveCounter = 0;
 
     while(true) {
-        cout << endl;
         cout << ">> ";
         getline(cin, input);
         cout << endl;
 
         if(isValidCommand(input)) {
             if (input == "help") {
-                cout << "Available commands: help, add, display, clear, save, exit" << endl;
+                cout << "Available commands: help, add, display, clear, search, erase, save, exit." << endl;
+                cout << endl;
 
             } else if (input == "add") {
                 getPersonInput(temp);
@@ -34,6 +33,12 @@ void UI::start() {
 
             } else if (input == "clear") {
                 system("cls");
+
+            } else if (input == "erase") {
+                Pservice.erase();
+
+            } else if (input == "search") {
+                Pservice.search();
 
             } else if (input == "save") {
                 Pservice.save();
@@ -57,6 +62,7 @@ void UI::start() {
 
         } else {
             cout << "Invalid command!" << endl;
+            cout << endl;
             continue;
         }
     }
@@ -71,10 +77,11 @@ void UI::getPersonInput(Person& p) {
     getline(cin, p.dayOfBirth);
     cout << "Date of death: ";
     getline(cin, p.dayOfDeath);
+    cout << endl;
 }
 
 bool UI::isValidCommand(string input) {
-    if (input == "help" || input == "add" || input == "display" || input == "clear" || input == "save" || input == "exit") {
+    if (input == "help" || input == "add" || input == "display" || input == "clear" || input == "save" || input == "erase" || input == "search" || input == "exit") {
         return true;
     }
     return false;
