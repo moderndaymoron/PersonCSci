@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
+#include "comparer.h"
 #include "person.h"
 
 class PersonRepository {
@@ -20,7 +22,6 @@ public:
 
 private:
     vector<Person> plist;
-
 };
 
 #endif // PERSONREPOSITORY_H_INCLUDED

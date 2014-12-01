@@ -19,10 +19,12 @@ SOURCES += main.cpp \
     ui.cpp \
     person.cpp \
     personservice.cpp \
-    personrepository.cpp
+    personrepository.cpp \
+    comparer.cpp
 
 HEADERS += \
     ui.h \
     person.h \
     personservice.h \
-    personrepository.h
+    personrepository.h \
+    comparer.h
