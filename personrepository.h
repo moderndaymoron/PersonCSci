@@ -14,6 +14,7 @@ public:
     void save();
     void erase();
     void search();
+    void searchLoop(string input, string word);
 
     double getSize();
 

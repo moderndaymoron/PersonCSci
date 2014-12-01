@@ -4,7 +4,7 @@
 using namespace std;
 
 PersonRepository::PersonRepository() {
-    plist = {};
+    plist;
     ifstream inFile("PersonFile.txt");
 
     if(inFile.is_open()) {
@@ -39,7 +39,7 @@ void PersonRepository::add(Person p) {
 void PersonRepository::display() {
     if(plist.size()) {
 
-        for(int i = 0; i < plist.size(); i++) {
+        for(unsigned int i = 0; i < plist.size(); i++) {
             cout << "Name:\t\t" << plist[i].name << endl;
             cout << "Gender:\t\t"<< plist[i].gender << endl;
             cout << "Date of birth:\t" << plist[i].dayOfBirth << endl;
@@ -60,7 +60,7 @@ void PersonRepository::save() {
 
     if(outFile.is_open()) {
 
-        for(int i = 0; i < plist.size(); i++) {
+        for(unsigned int i = 0; i < plist.size(); i++) {
             outFile << plist[i].name << endl;
             outFile << plist[i].gender << endl;
             outFile << plist[i].dayOfBirth << endl;
@@ -119,14 +119,58 @@ void PersonRepository::erase() {
 }
 
 void PersonRepository::search() {
-    string input;
-    cout << "Enter full name: ";
-    getline(cin, input);
-    cout << "Searching..." << endl;
+    string input, word;
+    char searchFor;
+    cout << "enter 'n' to search for name " << endl;
+    cout << "enter 'g' to search for gender " << endl;
+    cout << "enter 'b' to search for birthdate " << endl;
+    cout << "enter 'd' to search for deceased date " << endl;
+    do{cin >> searchFor;
+        if(searchFor != 'n' && searchFor != 'g' && searchFor != 'b' && searchFor != 'd')
+            cout << "Invalid command! Enter 'n' 'g' 'b' or 'd'" << endl;
+    }
+    while(searchFor != 'n' && searchFor != 'g' && searchFor != 'b' && searchFor != 'd');
+    cout << endl;
 
+    switch(searchFor){
+        case 'n':
+        cout << "Enter name: " << endl;
+        cin.ignore();
+        getline(cin, input);
+        word = "name";
+        searchLoop(input, word);
+        break;
+    case 'g':
+        cout << "Enter gender: " << endl;
+        cin.ignore();
+        getline(cin, input);
+        word = "gender";
+        searchLoop(input, word);
+        break;
+    case 'b':
+        cout << "Enter year of birth: " << endl;
+        cin.ignore();
+        getline(cin, input);
+        word = "dayOfBirth";
+        searchLoop(input, word);
+        break;
+    case 'd':
+        cout << "Enter year of death: " << endl;
+        cin.ignore();
+        getline(cin, input);
+        word = "dayOfDeath";
+        searchLoop(input, word);
+        break;
+    }
+}
+
+void PersonRepository::searchLoop(string input, string word)
+{
     int index, failCounter = 0;
     for(index = 0; index < plist.size(); index++) {
-        if(input == plist[index].name) {
+       if((word == "name" && input == plist[index].name) || (word == "gender" && input == plist[index].gender) ||
+               (word == "dayOfBirth" && input == plist[index].dayOfBirth)
+               || (word == "dayOfDeath" && input == plist[index].dayOfDeath)){
             cout << "Found at index " << index << endl;
             cout << endl;
             cout << "Name:\t\t" << plist[index].name << endl;
@@ -138,12 +182,14 @@ void PersonRepository::search() {
             failCounter++;
         }
     }
-
     if (failCounter == plist.size()) {
         cout << "ERROR: Could not find, person does not exist in database." << endl;
         cout << endl;
     }
+    cout << endl;
 }
+
+
 
 
 double PersonRepository::getSize() {
