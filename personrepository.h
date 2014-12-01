@@ -15,6 +15,7 @@ public:
     void display();
     void save();
     void erase();
+    void eraseLoop(string input, string word);
     void search();
     void searchLoop(string input, string word);
 
@@ -22,6 +23,9 @@ public:
 
 private:
     vector<Person> plist;
+    void displayPerson(const int index);
+    char searchFor();
+
 };
 
 #endif // PERSONREPOSITORY_H_INCLUDED
