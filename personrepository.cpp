@@ -9,7 +9,6 @@
 using namespace std;
 
 PersonRepository::PersonRepository() {
-    plist;
     ifstream inFile("PersonFile.txt");
 
     if(inFile.is_open()) {
@@ -21,10 +20,10 @@ PersonRepository::PersonRepository() {
               getline(inFile, line4)) {
 
             Person temp;
-            temp.name = line1;
-            temp.gender = line2;
-            temp.dayOfBirth = line3;
-            temp.dayOfDeath = line4;
+            temp.setName(line1);
+            temp.setGender(line2);
+            temp.setDayOfBirth(line3);
+            temp.setDayOfDeath(line4);
             plist.push_back(temp);
         }
 
@@ -69,6 +68,7 @@ void PersonRepository::display() {
                        cout << endl;
                 sort(plist.begin(),plist.end(), comp);
                 for(int i = 0; i < plist.size(); i++) {
+<<<<<<< HEAD
                     cout.width(40);
                     cout << left << plist[i].name;
                     cout.width(18);
@@ -79,11 +79,15 @@ void PersonRepository::display() {
                     cout << left << plist[i].dayOfDeath;
 
                     cout << endl;
+=======
+                    displayPerson(i);
+>>>>>>> 529c2e6aab0cf04b9fc459ce6d2e0dea248fe1c3
                 }
             } catch (...) {
                 cout << "ERROR: Sorting failed." << endl;
                 cout << endl;
             }
+
         } else if((ans == 'n' || ans == 'N')) {
 
                    cout << endl;
@@ -97,6 +101,7 @@ void PersonRepository::display() {
                    cout << left << "Year of death" << endl;
                    cout << endl;
             for(int i = 0; i < plist.size(); i++) {
+<<<<<<< HEAD
                 cout.width(40);
                 cout << left << plist[i].name;
                 cout.width(18);
@@ -107,12 +112,15 @@ void PersonRepository::display() {
                 cout << left << plist[i].dayOfDeath;
                 cout << endl;
 
+=======
+                displayPerson(i);
+>>>>>>> 529c2e6aab0cf04b9fc459ce6d2e0dea248fe1c3
             }
-           }
-    }
-           else {
-             cout << "The database is empty" << endl;
-             cout << endl;
+        }
+
+    } else {
+        cout << "The database is empty" << endl;
+        cout << endl;
     }
 }
 
@@ -124,10 +132,10 @@ void PersonRepository::save() {
     if(outFile.is_open()) {
 
         for(unsigned int i = 0; i < plist.size(); i++) {
-            outFile << plist[i].name << endl;
-            outFile << plist[i].gender << endl;
-            outFile << plist[i].dayOfBirth << endl;
-            outFile << plist[i].dayOfDeath << endl;
+            outFile << plist[i].getName() << endl;
+            outFile << plist[i].getGender() << endl;
+            outFile << plist[i].getDayOfBirth() << endl;
+            outFile << plist[i].getDayOfDeath() << endl;
         }
 
         cout << "All changes have been saved." << endl;
@@ -151,71 +159,39 @@ void PersonRepository::erase() {
         cout << endl;
         cout << "All persons have been erased." << endl;
         cout << endl;
+
     } else if (answer == "specific") {
-
-        string input, word;
-
-        char erase;
-        erase = searchFor();
-        switch(erase){
-            case 'n':
-            cout << "Enter name: ";
-            cin.ignore();
-            getline(cin, input);
-            word = "name";
-            eraseLoop(input, word);
-            break;
-        case 'g':
-            cout << "Enter gender: ";
-            cin.ignore();
-            getline(cin, input);
-            word = "gender";
-            eraseLoop(input, word);
-            break;
-        case 'b':
-            cout << "Enter year of birth: ";
-            cin.ignore();
-            getline(cin, input);
-            word = "dayOfBirth";
-            eraseLoop(input, word);
-            break;
-        case 'd':
-            cout << "Enter year of death: ";
-            cin.ignore();
-            getline(cin, input);
-            word = "dayOfDeath";
-            eraseLoop(input, word);
-            break;
-        }
-            }
+        searchSwitch(searchFor(), "erase");
     }
+}
 
 void PersonRepository::eraseLoop(string input, string word)
 {
-
     cout << "Searching..." << endl;
     cout << endl;
 
     char erase;
     int index, failCounter = 0, hitCounter = 0;
     for(index = 0; index < plist.size(); index++) {
-        if(input == plist[index].name) {
+        if(input == plist[index].getName()) {
             cout << "Found at index " << index << endl;
             displayPerson(index);
             cout << "Erase?(y/n) ";
 
             cin >> erase;
             cin.ignore();
-                if(erase == 'y' || erase == 'Y'){
-                    plist.erase(plist.begin()+index);
-                    cout << "Person erased." << endl;
-                    index--; //because erasing means the .size() function returns a smaller value, needs to shrink the index as required
-                    hitCounter++;
-                    cout << endl;
-                }else{
-                    cout << "Person not erased." << endl;
-                    cout << endl;
-                }
+
+            if(erase == 'y' || erase == 'Y'){
+                plist.erase(plist.begin()+index);
+                cout << "Person erased." << endl;
+                index--; //because erasing means the .size() function returns a smaller value, needs to shrink the index as required
+                hitCounter++;
+                cout << endl;
+            }else{
+                cout << "Person not erased." << endl;
+                cout << endl;
+            }
+
         } else {
             failCounter++;
         }
@@ -230,6 +206,7 @@ void PersonRepository::eraseLoop(string input, string word)
 
 
 void PersonRepository::search() {
+<<<<<<< HEAD
     string input, word;
     char searcher;
     searcher = searchFor();
@@ -264,24 +241,27 @@ void PersonRepository::search() {
         searchLoop(input, word);
         break;
     }
+=======
+    searchSwitch(searchFor(), "search");
+>>>>>>> 529c2e6aab0cf04b9fc459ce6d2e0dea248fe1c3
 }
 
 void PersonRepository::searchLoop(string input, string word)
 {
     int index, failCounter = 0;
     for(index = 0; index < plist.size(); index++) {
-       if((word == "name" && input == plist[index].name) || (word == "gender" && input == plist[index].gender) ||
-               (word == "dayOfBirth" && input == plist[index].dayOfBirth)
-               || (word == "dayOfDeath" && input == plist[index].dayOfDeath)){
+       if((word == "name" && input == plist[index].getName())
+       || (word == "gender" && input == plist[index].getGender())
+       || (word == "dayOfBirth" && input == plist[index].getDayOfBirth())
+       || (word == "dayOfDeath" && input == plist[index].getDayOfDeath())) {
+
             cout << "Found at index " << index << endl;
+            displayPerson(index);
             cout << endl;
-            cout << "Name:\t\t" << plist[index].name << endl;
-            cout << "Gender:\t\t"<< plist[index].gender << endl;
-            cout << "Date of birth:\t" << plist[index].dayOfBirth << endl;
-            cout << "Date of death:\t" << plist[index].dayOfDeath << endl;
-            cout << endl;
+
         } else {
             failCounter++;
+
         }
     }
     if (failCounter == plist.size()) {
@@ -300,10 +280,10 @@ double PersonRepository::getSize() {
 
 void PersonRepository::displayPerson(const int index)
 {
-    cout << "Name:\t\t" << plist[index].name << endl;
-    cout << "Gender:\t\t"<< plist[index].gender << endl;
-    cout << "Date of birth:\t" << plist[index].dayOfBirth << endl;
-    cout << "Date of death:\t" << plist[index].dayOfDeath << endl;
+    cout << "Name:\t\t" << plist[index].getName() << endl;
+    cout << "Gender:\t\t"<< plist[index].getGender() << endl;
+    cout << "Date of birth:\t" << plist[index].getDayOfBirth() << endl;
+    cout << "Date of death:\t" << plist[index].getDayOfDeath() << endl;
     cout << endl;
 
 }
@@ -316,12 +296,74 @@ char PersonRepository::searchFor()
     cout << "enter 'g' to search for gender " << endl;
     cout << "enter 'b' to search for birthdate " << endl;
     cout << "enter 'd' to search for deceased date " << endl;
-    do{cin >> searchFor;
-        if(searchFor != 'n' && searchFor != 'g' && searchFor != 'b' && searchFor != 'd')
+    do {
+        cin >> searchFor;
+        if(!isValidSearchColumn(searchFor)) {
             cout << "Invalid command! Enter 'n' 'g' 'b' or 'd'" << endl;
-    }
-    while(searchFor != 'n' && searchFor != 'g' && searchFor != 'b' && searchFor != 'd');
+        }
+    } while(!isValidSearchColumn(searchFor));
     cout << endl;
 
     return searchFor;
+}
+
+bool PersonRepository::isValidSearchColumn(char in) {
+    if (in == 'n' || in == 'g' || in == 'b' || in == 'd') {
+        return true;
+    }
+    return false;
+}
+
+void PersonRepository::searchSwitch(char searchColumn, string searchType) {
+    string input, word;
+    switch(searchColumn){
+        case 'n':
+            cout << "Enter name: ";
+            cin.ignore();
+            getline(cin, input);
+            word = "name";
+            if(searchType == "search") {
+                searchLoop(input, word);
+            } else {
+                eraseLoop( input, word);
+            }
+            break;
+
+        case 'g':
+            cout << "Enter gender: ";
+            cin.ignore();
+            getline(cin, input);
+            word = "gender";
+            if(searchType == "search") {
+                searchLoop(input, word);
+            } else {
+                eraseLoop( input, word);
+            }
+            break;
+
+        case 'b':
+            cout << "Enter year of birth: ";
+            cin.ignore();
+            getline(cin, input);
+            word = "dayOfBirth";
+            if(searchType == "search") {
+                searchLoop(input, word);
+            } else {
+                eraseLoop( input, word);
+            }
+            break;
+
+        case 'd':
+            cout << "Enter year of death: ";
+            cin.ignore();
+            getline(cin, input);
+            word = "dayOfDeath";
+            if(searchType == "search") {
+                searchLoop(input, word);
+            } else {
+                eraseLoop(input, word);
+            }
+            break;
+    }
+
 }

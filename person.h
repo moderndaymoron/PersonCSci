@@ -9,13 +9,25 @@ class Person {
 public:
     Person();
 
+    string getName();
+    void setName(string s);
+
+    string getGender();
+    void setGender(string s);
+
+    string getDayOfBirth();
+    void setDayOfBirth(string s);
+
+    string getDayOfDeath();
+    void setDayOfDeath(string s);
+
+    bool isValidPerson();
+
+private:
     string name;
     string gender;
     string dayOfBirth;
     string dayOfDeath;
-
-private:
-
 
 
 };

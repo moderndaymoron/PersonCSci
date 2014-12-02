@@ -13,6 +13,7 @@ public:
     void getPersonInput(Person& p);
     bool isValidCommand(string input);
 
+    void commandCenter(string input, int &saveCounter, int &editCounter);
 private:
     PersonService Pservice;
 };
