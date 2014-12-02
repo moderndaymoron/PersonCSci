@@ -13,6 +13,7 @@ public:
     void save();
     void erase();
     void search();
+    void help();
 
     double getSize();
 

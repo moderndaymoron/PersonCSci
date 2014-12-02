@@ -12,7 +12,7 @@ class Comparer
 public:
     Comparer();
     Comparer(string ord);
-    bool operator () (const Person first, const Person second);
+    bool operator () (Person first, Person second);
 
 private:
     string order;

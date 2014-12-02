@@ -21,6 +21,7 @@ public:
 
     double getSize();
 
+    bool isValidSearchColumn(char in);
 private:
     vector<Person> plist;
     void displayPerson(const int index);
