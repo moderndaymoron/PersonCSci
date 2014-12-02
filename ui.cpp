@@ -61,12 +61,17 @@ bool UI::isValidCommand(string input) {
 void UI::commandCenter(string input, int &saveCounter, int &editCounter) {
     if (input == "help") {
         Pservice.help();
+
     } else if (input == "add") {
         Person temp;
         getPersonInput(temp);
-        Pservice.add(temp);
+        if(temp.isValidPerson()) {
+            Pservice.add(temp);
+            editCounter++;
 
-        editCounter++;
+        } else {
+            cout << "ERROR: invalid person entered!" << endl;
+        }
 
     }else if (input == "display") {
         Pservice.display();
@@ -76,7 +81,6 @@ void UI::commandCenter(string input, int &saveCounter, int &editCounter) {
 
     } else if (input == "erase") {
         Pservice.erase();
-
         editCounter++;
 
     } else if (input == "search") {

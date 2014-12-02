@@ -37,3 +37,7 @@ void Person::setDayOfDeath(string s) {
     dayOfDeath = s;
 }
 
+bool Person::isValidPerson() {
+    return true; //TODO: check for valid
+}
+

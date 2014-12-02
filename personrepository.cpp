@@ -7,7 +7,6 @@
 using namespace std;
 
 PersonRepository::PersonRepository() {
-    plist;
     ifstream inFile("PersonFile.txt");
 
     if(inFile.is_open()) {
@@ -108,49 +107,14 @@ void PersonRepository::erase() {
         cout << endl;
         cout << "All persons have been erased." << endl;
         cout << endl;
+
     } else if (answer == "specific") {
-
-        string input, word;
-
-        char erase;
-        erase = searchFor();
-
-        switch(erase){
-            case 'n':
-                cout << "Enter name: ";
-                cin.ignore();
-                getline(cin, input);
-                word = "name";
-                eraseLoop(input, word);
-                break;
-            case 'g':
-                cout << "Enter gender: ";
-                cin.ignore();
-                getline(cin, input);
-                word = "gender";
-                eraseLoop(input, word);
-                break;
-            case 'b':
-                cout << "Enter year of birth: ";
-                cin.ignore();
-                getline(cin, input);
-                word = "dayOfBirth";
-                eraseLoop(input, word);
-                break;
-            case 'd':
-                cout << "Enter year of death: ";
-                cin.ignore();
-                getline(cin, input);
-                word = "dayOfDeath";
-                eraseLoop(input, word);
-                break;
-        }
+        searchSwitch(searchFor(), "erase");
     }
 }
 
 void PersonRepository::eraseLoop(string input, string word)
 {
-
     cout << "Searching..." << endl;
     cout << endl;
 
@@ -190,44 +154,7 @@ void PersonRepository::eraseLoop(string input, string word)
 
 
 void PersonRepository::search() {
-    string input, word;
-    char searcher;
-    searcher = searchFor();
-
-    switch(searcher){
-        case 'n':
-            cout << "Enter name: ";
-            cin.ignore();
-            getline(cin, input);
-            word = "name";
-            searchLoop(input, word);
-            break;
-
-        case 'g':
-            cout << "Enter gender: ";
-            cin.ignore();
-            getline(cin, input);
-            word = "gender";
-            searchLoop(input, word);
-            break;
-
-        case 'b':
-            cout << "Enter year of birth: ";
-            cin.ignore();
-            getline(cin, input);
-            word = "dayOfBirth";
-            searchLoop(input, word);
-            break;
-
-        case 'd':
-            cout << "Enter year of death: ";
-            cin.ignore();
-            getline(cin, input);
-            word = "dayOfDeath";
-            searchLoop(input, word);
-            break;
-
-    }
+    searchSwitch(searchFor(), "search");
 }
 
 void PersonRepository::searchLoop(string input, string word)
@@ -296,4 +223,58 @@ bool PersonRepository::isValidSearchColumn(char in) {
         return true;
     }
     return false;
+}
+
+void PersonRepository::searchSwitch(char searchColumn, string searchType) {
+    string input, word;
+    switch(searchColumn){
+        case 'n':
+            cout << "Enter name: ";
+            cin.ignore();
+            getline(cin, input);
+            word = "name";
+            if(searchType == "search") {
+                searchLoop(input, word);
+            } else {
+                eraseLoop( input, word);
+            }
+            break;
+
+        case 'g':
+            cout << "Enter gender: ";
+            cin.ignore();
+            getline(cin, input);
+            word = "gender";
+            if(searchType == "search") {
+                searchLoop(input, word);
+            } else {
+                eraseLoop( input, word);
+            }
+            break;
+
+        case 'b':
+            cout << "Enter year of birth: ";
+            cin.ignore();
+            getline(cin, input);
+            word = "dayOfBirth";
+            if(searchType == "search") {
+                searchLoop(input, word);
+            } else {
+                eraseLoop( input, word);
+            }
+            break;
+
+        case 'd':
+            cout << "Enter year of death: ";
+            cin.ignore();
+            getline(cin, input);
+            word = "dayOfDeath";
+            if(searchType == "search") {
+                searchLoop(input, word);
+            } else {
+                eraseLoop(input, word);
+            }
+            break;
+    }
+
 }

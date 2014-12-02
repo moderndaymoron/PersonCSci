@@ -14,14 +14,19 @@ public:
     void add(Person p);
     void display();
     void save();
+
+    bool isValidSearchColumn(char in);
+    void searchSwitch(char searchColumn, string searchType);
+
     void erase();
     void eraseLoop(string input, string word);
+
     void search();
     void searchLoop(string input, string word);
 
+
     double getSize();
 
-    bool isValidSearchColumn(char in);
 private:
     vector<Person> plist;
     void displayPerson(const int index);
