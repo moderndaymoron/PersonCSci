@@ -1,5 +1,6 @@
 #include "ui.h"
 #include <stdlib.h>
+#include <fstream>
 
 UI::UI() {
     Pservice = PersonService();
@@ -8,8 +9,10 @@ UI::UI() {
 void UI::start() {
     Person temp;
     string input;
-    cout << "Hello user." << endl;
-    cout << "(Type help for command list)" << endl;
+
+        cout << "Hello user." << endl;
+        cout << "(Type help for command list)" << endl;
+
 
     double oldSize = Pservice.getSize();
     int saveCounter = 0;

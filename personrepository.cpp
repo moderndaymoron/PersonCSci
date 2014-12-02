@@ -3,6 +3,8 @@
 #include <string>
 #include <algorithm>
 #include "comparer.h"
+#include <iomanip>
+
 
 using namespace std;
 
@@ -48,17 +50,34 @@ void PersonRepository::display() {
         if (ans == 'y' || ans == 'Y') {
             cout << "Sort by (name/gender/date of birth/date of death)? ";
             string sortOrder;
-            cin.ignore();
             getline(cin, sortOrder);
             Comparer comp = Comparer(sortOrder);
-
+            cout << endl;
+            cout << "sorting...";
             try {
+                cout << endl;
+
+                       cout << endl;
+                       cout.width(40);
+                       cout << left << "Name";
+                       cout.width(14);
+                       cout << left << "Gender";
+                       cout.width(14);
+                       cout << left << "Year of birth";
+                       cout.width(15);
+                       cout << left << "Year of death" << endl;
+                       cout << endl;
                 sort(plist.begin(),plist.end(), comp);
                 for(int i = 0; i < plist.size(); i++) {
-                    cout << "Name:\t\t" << plist[i].name << endl;
-                    cout << "Gender:\t\t"<< plist[i].gender << endl;
-                    cout << "Date of birth:\t" << plist[i].dayOfBirth << endl;
-                    cout << "Date of death:\t" << plist[i].dayOfDeath << endl;
+                    cout.width(40);
+                    cout << left << plist[i].name;
+                    cout.width(18);
+                    cout << left << plist[i].gender;
+                    cout.width(15);
+                    cout << left << plist[i].dayOfBirth;
+                    cout.width(15);
+                    cout << left << plist[i].dayOfDeath;
+
                     cout << endl;
                 }
             } catch (...) {
@@ -66,12 +85,28 @@ void PersonRepository::display() {
                 cout << endl;
             }
         } else if((ans == 'n' || ans == 'N')) {
+
+                   cout << endl;
+                   cout.width(40);
+                   cout << left << "Name";
+                   cout.width(14);
+                   cout << left << "Gender";
+                   cout.width(14);
+                   cout << left << "Year of birth";
+                   cout.width(20);
+                   cout << left << "Year of death" << endl;
+                   cout << endl;
             for(int i = 0; i < plist.size(); i++) {
-                cout << "Name:\t\t" << plist[i].name << endl;
-                cout << "Gender:\t\t"<< plist[i].gender << endl;
-                cout << "Date of birth:\t" << plist[i].dayOfBirth << endl;
-                cout << "Date of death:\t" << plist[i].dayOfDeath << endl;
+                cout.width(40);
+                cout << left << plist[i].name;
+                cout.width(18);
+                cout << left << plist[i].gender;
+                cout.width(15);
+                cout << left << plist[i].dayOfBirth;
+                cout.width(15);
+                cout << left << plist[i].dayOfDeath;
                 cout << endl;
+
             }
            }
     }
@@ -200,7 +235,7 @@ void PersonRepository::search() {
     searcher = searchFor();
 
     switch(searcher){
-        case 'n':
+    case 'n':
         cout << "Enter name: ";
         cin.ignore();
         getline(cin, input);
