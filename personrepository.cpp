@@ -28,6 +28,7 @@ PersonRepository::PersonRepository() {
         }
 
     } else {
+        cout << endl;
         cout << "ERROR: cannot open file." << endl;
         cout << endl;
     }
@@ -47,75 +48,23 @@ void PersonRepository::display() {
         cin >> ans;
         cin.ignore();
         if (ans == 'y' || ans == 'Y') {
+            cout << endl;
             cout << "Sort by (name/gender/date of birth/date of death)? ";
             string sortOrder;
             getline(cin, sortOrder);
             Comparer comp = Comparer(sortOrder);
             cout << endl;
-            cout << "sorting...";
+            cout << "Sorting...";
+            cout << endl;
             try {
-                cout << endl;
-
-                       cout << endl;
-                       cout.width(40);
-                       cout << left << "Name";
-                       cout.width(14);
-                       cout << left << "Gender";
-                       cout.width(14);
-                       cout << left << "Year of birth";
-                       cout.width(15);
-                       cout << left << "Year of death" << endl;
-                       cout << endl;
                 sort(plist.begin(),plist.end(), comp);
-                for(int i = 0; i < plist.size(); i++) {
-<<<<<<< HEAD
-                    cout.width(40);
-                    cout << left << plist[i].name;
-                    cout.width(18);
-                    cout << left << plist[i].gender;
-                    cout.width(15);
-                    cout << left << plist[i].dayOfBirth;
-                    cout.width(15);
-                    cout << left << plist[i].dayOfDeath;
-
-                    cout << endl;
-=======
-                    displayPerson(i);
->>>>>>> 529c2e6aab0cf04b9fc459ce6d2e0dea248fe1c3
-                }
-            } catch (...) {
-                cout << "ERROR: Sorting failed." << endl;
+                displayAllPersons();
+            } catch(...) {
+                cout << "ERROR: sorting failed" << endl;
                 cout << endl;
             }
-
         } else if((ans == 'n' || ans == 'N')) {
-
-                   cout << endl;
-                   cout.width(40);
-                   cout << left << "Name";
-                   cout.width(14);
-                   cout << left << "Gender";
-                   cout.width(14);
-                   cout << left << "Year of birth";
-                   cout.width(20);
-                   cout << left << "Year of death" << endl;
-                   cout << endl;
-            for(int i = 0; i < plist.size(); i++) {
-<<<<<<< HEAD
-                cout.width(40);
-                cout << left << plist[i].name;
-                cout.width(18);
-                cout << left << plist[i].gender;
-                cout.width(15);
-                cout << left << plist[i].dayOfBirth;
-                cout.width(15);
-                cout << left << plist[i].dayOfDeath;
-                cout << endl;
-
-=======
-                displayPerson(i);
->>>>>>> 529c2e6aab0cf04b9fc459ce6d2e0dea248fe1c3
-            }
+            displayAllPersons();
         }
 
     } else {
@@ -142,6 +91,7 @@ void PersonRepository::save() {
         cout << endl;
 
     } else {
+        cout << endl;
         cout << "ERROR: cannot open file." << endl;
         cout << endl;
     }
@@ -173,7 +123,10 @@ void PersonRepository::eraseLoop(string input, string word)
     char erase;
     int index, failCounter = 0, hitCounter = 0;
     for(index = 0; index < plist.size(); index++) {
-        if(input == plist[index].getName()) {
+        if((word == "name" && input == plist[index].getName())
+        || (word == "gender" && input == plist[index].getGender())
+        || (word == "dayOfBirth" && input == plist[index].getDayOfBirth())
+        || (word == "dayOfDeath" && input == plist[index].getDayOfDeath())) {
             cout << "Found at index " << index << endl;
             displayPerson(index);
             cout << "Erase?(y/n) ";
@@ -199,6 +152,7 @@ void PersonRepository::eraseLoop(string input, string word)
 
 
     if ((failCounter == plist.size()) && (hitCounter == 0)) {
+        cout << endl;
         cout << "ERROR: Could not find, person does not exist in database." << endl;
         cout << endl;
     }
@@ -206,44 +160,7 @@ void PersonRepository::eraseLoop(string input, string word)
 
 
 void PersonRepository::search() {
-<<<<<<< HEAD
-    string input, word;
-    char searcher;
-    searcher = searchFor();
-
-    switch(searcher){
-    case 'n':
-        cout << "Enter name: ";
-        cin.ignore();
-        getline(cin, input);
-        word = "name";
-        searchLoop(input, word);
-        break;
-    case 'g':
-        cout << "Enter gender: ";
-        cin.ignore();
-        getline(cin, input);
-        word = "gender";
-        searchLoop(input, word);
-        break;
-    case 'b':
-        cout << "Enter year of birth: ";
-        cin.ignore();
-        getline(cin, input);
-        word = "dayOfBirth";
-        searchLoop(input, word);
-        break;
-    case 'd':
-        cout << "Enter year of death: ";
-        cin.ignore();
-        getline(cin, input);
-        word = "dayOfDeath";
-        searchLoop(input, word);
-        break;
-    }
-=======
     searchSwitch(searchFor(), "search");
->>>>>>> 529c2e6aab0cf04b9fc459ce6d2e0dea248fe1c3
 }
 
 void PersonRepository::searchLoop(string input, string word)
@@ -255,16 +172,17 @@ void PersonRepository::searchLoop(string input, string word)
        || (word == "dayOfBirth" && input == plist[index].getDayOfBirth())
        || (word == "dayOfDeath" && input == plist[index].getDayOfDeath())) {
 
+            cout << endl;
             cout << "Found at index " << index << endl;
+            cout << endl;
             displayPerson(index);
             cout << endl;
-
         } else {
             failCounter++;
-
         }
     }
     if (failCounter == plist.size()) {
+        cout << endl;
         cout << "ERROR: Could not find, person does not exist in database." << endl;
         cout << endl;
     }
@@ -286,6 +204,40 @@ void PersonRepository::displayPerson(const int index)
     cout << "Date of death:\t" << plist[index].getDayOfDeath() << endl;
     cout << endl;
 
+}
+
+void PersonRepository::displayAllPersons() {
+    cout << endl;
+    cout.width(36);
+    cout << left << "Name:";
+    cout.width(18);
+    cout << left << "Gender:";
+    cout.width(18);
+    cout << left << "Year of birth:";
+    cout.width(25);
+    cout << left << "Year of death:" << endl;
+    for(int i = 0; i < 86; i++) {
+        cout << "-";
+    }
+    cout << endl;
+    for(int i = 0; i < plist.size(); i++) {
+
+        cout.width(36);
+        cout << left << plist[i].getName();
+        cout.width(18);
+        cout << left << plist[i].getGender();
+        cout.width(18);
+        cout << left << plist[i].getDayOfBirth();
+        cout.width(25);
+        cout << left << plist[i].getDayOfDeath();
+        cout << endl;
+
+    }
+    for(int i = 0; i < 86; i++) {
+        cout << "-";
+    }
+    cout << endl;
+    cout << endl;
 }
 
 char PersonRepository::searchFor()

@@ -29,8 +29,6 @@ private:
     string dayOfBirth;
     string dayOfDeath;
 
-
 };
-
 
 #endif // PERSON_H_INCLUDED

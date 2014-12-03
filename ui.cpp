@@ -9,8 +9,12 @@ UI::UI() {
 void UI::start() {
     string input;
 
-        cout << "Hello user." << endl;
-        cout << "(Type help for command list)" << endl;
+        cout << "Good day to you, user." << endl;
+        cout <<   "Welcome to the Great Computer Science Figure Database Ver. 1." << endl;
+        cout << "CSFD 1.0 for short." << endl;
+        cout << endl;
+        cout << "(Type help for a command list)" << endl;
+        cout << endl;
 
 
     int saveCounter = 0, editCounter = 0;
@@ -74,6 +78,7 @@ void UI::commandCenter(string input, int &saveCounter, int &editCounter) {
 
         } else {
             cout << "ERROR: invalid person entered!" << endl;
+            cout << endl;
         }
 
     }else if (input == "display") {

@@ -27,6 +27,8 @@ public:
 
     double getSize();
 
+    void displayAllPersons();
+
 private:
     vector<Person> plist;
     void displayPerson(const int index);

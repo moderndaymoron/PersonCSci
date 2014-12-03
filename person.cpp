@@ -3,6 +3,10 @@
 
 Person::Person()
 {
+    name = "";
+    gender = "";
+    dayOfBirth = "";
+    dayOfDeath = "";
 }
 
 string Person::getName() {
@@ -38,6 +42,44 @@ void Person::setDayOfDeath(string s) {
 }
 
 bool Person::isValidPerson() {
-    return true; //TODO: check for valid
+    if (name != "") {
+        if(gender == "Male" || gender == "Female") {
+            int counterForTrue = 0;
+            for(int i = 0; i < dayOfBirth.size(); i++) {
+                if(i >= 0 && i <= 3) {
+                    if(isdigit(dayOfBirth[i])) {
+                        counterForTrue++;
+                    }
+                } else if(i == 4) {
+                    if(dayOfBirth[i] == '/') {
+                        counterForTrue++;
+                    }
+                } else if(i == 5 || i == 6) {
+                    if(isdigit(dayOfBirth[i])) {
+                        counterForTrue++;
+                    }
+                } else if(i == 7) {
+                    if(dayOfBirth[i] == '/') {
+                        counterForTrue++;
+                    }
+                } else if(i == 8 || i == 9) {
+                    if(isdigit(dayOfBirth[i])) {
+                        counterForTrue++;
+                    }
+                }
+            }
+
+            if(counterForTrue == 10) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
 }
 
