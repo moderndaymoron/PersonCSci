@@ -41,7 +41,6 @@ vector<Person> PersonRepository::getSortedPersons(string sortOrder) {
     Comparer comp = Comparer(sortOrder);
     try {
         sort(plist.begin(),plist.end(), comp);
-
     } catch(...) {
         throw;
     }
@@ -124,5 +123,3 @@ vector<Person> PersonRepository::search(string input, string word) {
 double PersonRepository::getSize() {
     return plist.size();
 }
-
-

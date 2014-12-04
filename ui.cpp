@@ -69,18 +69,18 @@ void UI::commandCenter(string input, int &saveCounter, int &editCounter) {
     if (input == "help") {
         cout << "Available commands:\n";
         cout << endl;
-        cout << "help\t -> \t(get list of commands)\n";
-        cout << "add\t -> \t(add to repository)\n";
-        cout << "display\t -> \t(displays repository (optionally sorted))\n";
-        cout << "clear\t -> \t(clears display)\n";
-        cout << "search\t -> \t(search in repository)\n";
-        cout << "erase\t -> \t(erase from repository)\n";
-        cout << "save\t -> \t(save changes)\n";
-        cout << "exit\t -> \t(quit)\n";
-        cout << endl << endl;
+        cout << "help\t (get list of commands)\n";
+        cout << "add\t (add to repository)\n";
+        cout << "display\t (displays repository (optionally sorted))\n";
+        cout << "clear\t (clears display)\n";
+        cout << "search\t (search in repository)\n";
+        cout << "erase\t (erase from repository)\n";
+        cout << "save\t (save changes)\n";
+        cout << "exit\t (quit)\n";
+        cout << endl;
         cout << "Interaction:\n";
         cout << ">>\t (waiting for command)\n";
-        cout << endl << endl;
+        cout << endl;
 
     } else if (input == "add") {
         Person temp;
@@ -117,13 +117,8 @@ void UI::commandCenter(string input, int &saveCounter, int &editCounter) {
         cout << "What would you like to erase (all/specific)? ";
         getline(cin, answer);
 
-        vector<Person> searchResults;
-        if(answer == "specific") {
-            searchResults = searchSwitch(searchFor());
-        }
-
+        vector<Person> searchResults = searchSwitch(searchFor());
         bool erased = Pservice.erase(searchResults, answer);
-
         if(erased) {
             cout << endl;
             cout << "Person(s) erased!" << endl;
@@ -158,7 +153,7 @@ void UI::commandCenter(string input, int &saveCounter, int &editCounter) {
                 Pservice.save();
             }
         }
-        cout << endl;
+
         cout << "Thanks for using our database program!" << endl;
         cout << endl;
         exit(0);
@@ -169,20 +164,14 @@ void UI::commandCenter(string input, int &saveCounter, int &editCounter) {
 char UI::searchFor() {
 
     char searchFor;
-    cout << "1: to search for name " << endl;
-    cout << "2: to search for gender " << endl;
-    cout << "3: to search for birthdate " << endl;
-    cout << "4: to search for deceased date " << endl;
-    cout << endl;
+    cout << "enter 'n' to search for name " << endl;
+    cout << "enter 'g' to search for gender " << endl;
+    cout << "enter 'b' to search for birthdate " << endl;
+    cout << "enter 'd' to search for deceased date " << endl;
     do {
-        cout << "Enter here: ";
         cin >> searchFor;
         if(!isValidSearchColumn(searchFor)) {
-            cout << endl;
-            cout << "Invalid command! Enter '1', '2', '3', or '4'," << endl;
-            cout << endl;
-
-            continue;
+            cout << "Invalid command! Enter 'n' 'g' 'b' or 'd'" << endl;
         }
     } while(!isValidSearchColumn(searchFor));
     cout << endl;
@@ -191,7 +180,7 @@ char UI::searchFor() {
 }
 
 bool UI::isValidSearchColumn(char in) {
-    if (in == '1' || in == '2' || in == '3' || in == '4') {
+    if (in == 'n' || in == 'g' || in == 'b' || in == 'd') {
         return true;
     }
     return false;
@@ -200,39 +189,35 @@ bool UI::isValidSearchColumn(char in) {
 vector<Person> UI::searchSwitch(char searchColumn) {
     string input, word;
     switch(searchColumn){
-        case '1':
+        case 'n':
             cout << "Enter name: ";
             cin.ignore();
             getline(cin, input);
             word = "name";
-            cout << endl;
             return Pservice.search(input, word);
             break;
 
-        case '2':
+        case 'g':
             cout << "Enter gender: ";
             cin.ignore();
             getline(cin, input);
             word = "gender";
-            cout << endl;
             return Pservice.search(input, word);
             break;
 
-        case '3':
+        case 'b':
             cout << "Enter date of birth: ";
             cin.ignore();
             getline(cin, input);
             word = "dayOfBirth";
-            cout << endl;
             return Pservice.search(input, word);
             break;
 
-        case '4':
+        case 'd':
             cout << "Enter date of death: ";
             cin.ignore();
             getline(cin, input);
             word = "dayOfDeath";
-            cout << endl;
             return Pservice.search(input, word);
             break;
         default:
@@ -250,49 +235,40 @@ void UI::displayPerson(vector<Person> results) {
             cout << endl;
         }
     } else {
-        cout << endl;
-        cout << "ERROR: Person not found!" << endl;
-        cout << endl;
+        cout << "The database is empty" << endl;
     }
 }
 
 void UI::displayAllPersons(vector<Person> vec) {
-    if(vec.size()) {
-        cout << endl;
-        cout.width(36);
-        cout << left << "Name:";
-        cout.width(18);
-        cout << left << "Gender:";
-        cout.width(18);
-        cout << left << "Date of birth:";
-        cout.width(25);
-        cout << left << "Date of death:" << endl;
-        for(int i = 0; i < 86; i++) {
-            cout << "-";
-        }
-        cout << endl;
-        for(int i = 0; i < vec.size(); i++) {
-
-            cout.width(36);
-            cout << left << vec[i].getName();
-            cout.width(18);
-            cout << left << vec[i].getGender();
-            cout.width(18);
-            cout << left << vec[i].getDayOfBirth();
-            cout.width(25);
-            cout << left << vec[i].getDayOfDeath();
-            cout << endl;
-            cout << endl;
-
-        }
-        for(int i = 0; i < 86; i++) {
-            cout << "-";
-        }
-        cout << endl;
-        cout << endl;
-    } else {
-        cout << endl;
-        cout << "The database is empty" << endl;
-        cout << endl;
+    cout << endl;
+    cout.width(36);
+    cout << left << "Name:";
+    cout.width(18);
+    cout << left << "Gender:";
+    cout.width(18);
+    cout << left << "Date of birth:";
+    cout.width(25);
+    cout << left << "Date of death:" << endl;
+    for(int i = 0; i < 86; i++) {
+        cout << "-";
     }
+    cout << endl;
+    for(int i = 0; i < vec.size(); i++) {
+
+        cout.width(36);
+        cout << left << vec[i].getName();
+        cout.width(18);
+        cout << left << vec[i].getGender();
+        cout.width(18);
+        cout << left << vec[i].getDayOfBirth();
+        cout.width(25);
+        cout << left << vec[i].getDayOfDeath();
+        cout << endl;
+
+    }
+    for(int i = 0; i < 86; i++) {
+        cout << "-";
+    }
+    cout << endl;
+    cout << endl;
 }

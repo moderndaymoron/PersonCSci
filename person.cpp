@@ -82,4 +82,3 @@ bool Person::isValidPerson() {
         return false;
     }
 }
-
